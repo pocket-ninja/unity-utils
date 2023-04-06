@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace PocketUtils {
+namespace PocketApps.Utils {
     public class Singleton<T> : MonoBehaviour where T : Singleton<T> {
         private static T _instance;
 
@@ -37,6 +37,7 @@ namespace PocketUtils {
             }
         }
 
+        /// <summary> Called when a singleton is created. Use it to initialize state if necessary. </summary>
         public virtual void Setup() {
             /// It's meant to be overriden
         }
