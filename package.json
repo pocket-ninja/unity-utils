@@ -1,7 +1,7 @@
 {
-    "name": "com.pocketapps.unity-utils",
+    "name": "com.pocketapps.utils",
     "version": "1.0.0",
-    "displayName": "PocketUtils",
+    "displayName": "PocketAppsUtils",
     "description": "Set of tools and extensions for Unity",
     "unity": "2021.3",
     "dependencies": {},
