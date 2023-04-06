@@ -1,0 +1,13 @@
+{
+    "name": "com.pocketapps.unity-utils",
+    "version": "1.0.0",
+    "displayName": "PocketUtils",
+    "description": "Set of tools and extensions for Unity",
+    "unity": "2021.3",
+    "dependencies": {},
+    "keywords": ["utils", "extensions", "tools"],
+    "author": {
+        "name": "Sroik",
+        "url": "https://sroik.com/"
+    }
+}
