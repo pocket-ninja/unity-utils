@@ -4,9 +4,9 @@ namespace PocketApps.Utils {
     public class SafeArea : MonoBehaviour {
 
         [SerializeField]
-        private RectTransform target;
+        private RectTransform _target;
 
-        private Rect recentSafeArea = new Rect(0, 0, 0, 0);
+        private Rect _recentSafeArea = new Rect(0, 0, 0, 0);
 
         private void Awake() {
             Layout();
@@ -23,11 +23,11 @@ namespace PocketApps.Utils {
         private void Layout() {
             Rect safeArea = Screen.safeArea;
 
-            if (recentSafeArea == safeArea) {
+            if (_recentSafeArea == safeArea) {
                 return;
             };
 
-            recentSafeArea = safeArea;
+            _recentSafeArea = safeArea;
 
             /// Let's convert safe area rect from absolute pixels to normalized anchor coordinates
             Vector2 anchorMin = safeArea.position;
@@ -36,8 +36,8 @@ namespace PocketApps.Utils {
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
             anchorMax.y /= Screen.height;
-            target.anchorMin = anchorMin;
-            target.anchorMax = anchorMax;
+            _target.anchorMin = anchorMin;
+            _target.anchorMax = anchorMax;
 
             Debug.LogFormat(
                 "New safe area applied to {0}: x={1}, y={2}, w={3}, h={4} on full extents w={5}, h={6}",
