@@ -5,12 +5,15 @@ namespace PocketApps.Utils {
     public class SafeArea : MonoBehaviour {
 
         [SerializeField]
-        private RectTransform _target;
+        private RectTransform target;
 
         [SerializeField]
-        private bool _logsEnabled;
+        private bool logsEnabled = false;
 
-        private Rect _recentSafeArea = Rect.zero;
+        [SerializeField]
+        private bool executeInEditor = true;
+
+        private Rect recentSafeArea = Rect.zero;
 
         private void Start() {
             Layout();
@@ -21,13 +24,17 @@ namespace PocketApps.Utils {
         }
 
         private void Layout() {
-            Rect safeArea = Screen.safeArea;
+            if (!Application.isPlaying && !executeInEditor) {
+                // if we in the edit mode and it's disabled - fish execution 
+                return;
+            }
 
-            if (_recentSafeArea == safeArea && Application.isPlaying) {
+            Rect safeArea = Screen.safeArea;
+            if (recentSafeArea == safeArea) {
                 return;
             };
 
-            _recentSafeArea = safeArea;
+            recentSafeArea = safeArea;
 
             /* Let's convert safe area rect from absolute pixels to normalized anchor coordinates */
             Vector2 anchorMin = safeArea.position;
@@ -36,10 +43,10 @@ namespace PocketApps.Utils {
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
             anchorMax.y /= Screen.height;
-            _target.anchorMin = anchorMin;
-            _target.anchorMax = anchorMax;
+            target.anchorMin = anchorMin;
+            target.anchorMax = anchorMax;
 
-            if (_logsEnabled) {
+            if (logsEnabled) {
                 Debug.LogFormat(
                     "New safe area applied to {0}: x={1}, y={2}, w={3}, h={4} on full extents w={5}, h={6}",
                     name,
