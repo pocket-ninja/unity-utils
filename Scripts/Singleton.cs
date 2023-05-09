@@ -17,7 +17,6 @@ namespace PocketApps.Utils {
                     var gameObject = new GameObject($"[{TypeName}]");
                     DontDestroyOnLoad(gameObject);
                     var instance = gameObject.AddComponent<T>();
-                    instance.Setup();
                     _instance = instance;
                     return _instance;
                 }
@@ -35,11 +34,6 @@ namespace PocketApps.Utils {
             get {
                 return typeof(T).Name;
             }
-        }
-
-        /// <summary> Called when a singleton is created. Use it to initialize state if necessary. </summary>
-        public virtual void Setup() {
-            /// It's meant to be overriden
         }
     }
 }
