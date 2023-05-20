@@ -30,7 +30,7 @@ namespace PocketApps.Utils {
             }
         }
         
-        public static T HasInstance { 
+        public static bool HasInstance { 
             get {
                 return _instance != null;
             }
