@@ -29,6 +29,12 @@ namespace PocketApps.Utils {
                 return _instance;
             }
         }
+        
+        public static T HasInstance { 
+            get {
+                return _instance != null;
+            }
+        }
 
         private static string TypeName {
             get {
