@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using UnityEngine;
 
 namespace PocketApps.Utils {
@@ -14,32 +14,59 @@ namespace PocketApps.Utils {
                 var objects = FindObjectsOfType<T>();
 
                 if (objects.Length == 0) {
-                    var gameObject = new GameObject($"[{TypeName}]");
-                    DontDestroyOnLoad(gameObject);
-                    var instance = gameObject.AddComponent<T>();
-                    _instance = instance;
+                    _instance = CreateInstance();
                     return _instance;
                 }
 
                 if (objects.Length > 1) {
-                    Debug.LogError($"There are more than one instance of {TypeName}!");
+                    Debug.LogWarning($"There are more than one instance of {TypeName}! Let's keeping the first one and destroy others");
+                    objects.Skip(1).ToList().ForEach((o) => Destroy(o.gameObject));
                 }
 
                 _instance = objects[0];
                 return _instance;
             }
         }
-        
-        public static bool HasInstance { 
-            get {
-                return _instance != null;
-            }
+
+        public virtual bool isPeristent {
+            get => true;
+        }
+
+        public static bool HasInstance {
+            get => _instance != null;
         }
 
         private static string TypeName {
-            get {
-                return typeof(T).Name;
+            get => typeof(T).Name;
+        }
+
+        protected virtual void Awake() {
+            if (_instance == null) {
+                _instance = this as T;
             }
+
+            if (_instance.GetInstanceID() != GetInstanceID()) {
+                Destroy(gameObject);
+                return;
+            }
+
+            if (isPeristent) {
+                // in order do not be destroyed on load it must be without a parent
+                gameObject.transform.parent = null;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+
+        protected virtual void OnDestroy() {
+            if (_instance == this) {
+                _instance = null;
+            }
+        }
+
+        private static T CreateInstance() {
+            var gameObject = new GameObject($"[{TypeName}]");
+            var instance = gameObject.AddComponent<T>();
+            return instance;
         }
     }
 }
