@@ -2,17 +2,30 @@ using UnityEngine;
 
 namespace PocketApps.Utils {
     public static class LayerMaskExtensions {
-        /// <summary> Checks whether mask contains the layer or not </summary>
-        public static bool Contains(this LayerMask mask, int layer) {
-            return (mask & (1 << layer)) != 0;
+        /// <summary> Checks whether mask contains value </summary>
+        public static bool ContainsValue(this LayerMask mask, int value) {
+            return (mask & value) != 0;
         }
 
-        public static LayerMask With(this LayerMask mask, int layer) {
-            return mask | (1 << layer);
+        /// <summary> Checks whether mask contains layer </summary>
+        public static bool ContainsLayer(this LayerMask mask, int layer) {
+            return mask.ContainsValue(1 << layer);
         }
 
-        public static LayerMask Without(this LayerMask mask, int layer) {
-            return mask & ~(1 << layer);
+        public static LayerMask WithValue(this LayerMask mask, int value) {
+            return mask | value;
+        }
+
+        public static LayerMask WithLayer(this LayerMask mask, int layer) {
+            return mask.WithValue(1 << layer);
+        }
+        
+        public static LayerMask WithoutValue(this LayerMask mask, int value) {
+            return mask & ~value;
+        }
+
+        public static LayerMask WithoutLayer(this LayerMask mask, int layer) {
+            return mask.WithoutValue(1 << layer);
         }
     }
 }
