@@ -9,17 +9,10 @@ namespace PocketApps.Utils {
         
          /// <summary> Change Vector2's specific coordinate values </summary>
         public static Vector2 With(this Vector2 v2, float? x = null, float? y = null) {
-            var result = v2;
-
-            if (x.HasValue) {
-                result.x = x.Value;
-            }
-
-            if (y.HasValue) {
-                result.y = y.Value;
-            }
-
-            return result;
+            return new Vector3( 
+                x ?? v2.x,
+                y ?? v2.y
+            );
         }
     }
 
@@ -31,21 +24,11 @@ namespace PocketApps.Utils {
         
         /// <summary> Change Vector3's specific coordinate values </summary>
         public static Vector3 With(this Vector3 v3, float? x = null, float? y = null, float? z = null) {
-            var result = v3;
-
-            if (x.HasValue) {
-                result.x = x.Value;
-            }
-
-            if (y.HasValue) {
-                result.y = y.Value;
-            }
-
-            if (z.HasValue) {
-                result.z = z.Value;
-            }
-
-            return result;
+            return new Vector3( 
+                x ?? v3.x,
+                y ?? v3.y,
+                z ?? v3.z
+            );
         }
     }
 }
