@@ -9,7 +9,7 @@ namespace PocketApps.Utils {
         
          /// <summary> Change Vector2's specific coordinate values </summary>
         public static Vector2 With(this Vector2 v2, float? x = null, float? y = null) {
-            return new Vector3( 
+            return new Vector2( 
                 x ?? v2.x,
                 y ?? v2.y
             );
